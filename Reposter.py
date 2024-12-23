@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 # Enable logging for debugging
 logging.basicConfig(level=logging.INFO)
-
+bot_token = '7201537354:AAFwLFM_AICUWSYnUg79jPgc4FWVJiLbEdk'
 #Chat ID of the group where the bot will post(Profit Pulse Alerts)
 chat_id = '-1002318178963'
 
@@ -15,7 +15,7 @@ chat_id = '-1002318178963'
 
 def botSendMessage(message):
     # URL for the sendMessage API endpoint
-    url = f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage'
+    url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
 
     # Send the message using a POST request
 
@@ -31,7 +31,7 @@ def botSendMessage(message):
         logging.info(f"Error occurred:{e.response.text}")
 
 # Bot token from Telegram
-BOT_TOKEN = os.environ.get("7201537354:AAFwLFM_AICUWSYnUg79jPgc4FWVJiLbEdk")
+BOT_TOKEN = os.environ.get(bot_token)
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
