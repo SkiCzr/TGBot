@@ -28,7 +28,7 @@ def botSendMessage(message):
         response.raise_for_status()
         print("Message sent successfully:", response.json())
     except requests.exceptions.RequestException as e:
-        print("Error occurred:", e.response.text)
+        logging.info(f"Error occurred:{e.response.text}")
 
 # Bot token from Telegram
 BOT_TOKEN = os.environ.get("7201537354:AAFwLFM_AICUWSYnUg79jPgc4FWVJiLbEdk")
