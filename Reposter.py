@@ -1,11 +1,34 @@
 from flask import Flask, request
 import logging
+import requests
 import os
 
 app = Flask(__name__)
 
 # Enable logging for debugging
 logging.basicConfig(level=logging.INFO)
+
+#Chat ID of the group where the bot will post(Profit Pulse Alerts)
+chat_id = '-1002318178963'
+
+
+
+def botSendMessage(message):
+    # URL for the sendMessage API endpoint
+    url = f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage'
+
+    # Send the message using a POST request
+
+    payload = {
+        "chat_id": chat_id,
+        "text": message
+    }
+    try:
+        response = requests.post(url, json=payload)
+        response.raise_for_status()
+        print("Message sent successfully:", response.json())
+    except requests.exceptions.RequestException as e:
+        print("Error occurred:", e.response.text)
 
 # Bot token from Telegram
 BOT_TOKEN = os.environ.get("7201537354:AAFwLFM_AICUWSYnUg79jPgc4FWVJiLbEdk")
@@ -21,8 +44,9 @@ def webhook():
 
         # Check if the update contains a message
         if update['channel_post']['sender_chat']['title'] == "Signal Hub":
-            chat_id = update['channel_post']['sender_chat']['title']
-            logging.info(f"New message from chat: {chat_id}")
+            botSendMessage(update['channel_post']['text'])
+            chat_title = update['channel_post']['sender_chat']['title']
+            logging.info(f"New message from chat: {chat_title}")
             print("new message")  # Print "new message" to the console
 
         return "OK", 200
