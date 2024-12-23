@@ -12,15 +12,16 @@ BOT_TOKEN = os.environ.get("7201537354:AAFwLFM_AICUWSYnUg79jPgc4FWVJiLbEdk")
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
-    print("dada")
+
     try:
         # Parse the incoming request JSON
         update = request.get_json()
         logging.info(f"Received update: {update}")
 
+
         # Check if the update contains a message
-        if "message" in update:
-            chat_id = update["message"]["chat"]["id"]
+        if update['channel_post']['sender_chat']['title'] == "Signal Hub":
+            chat_id = update['channel_post']['sender_chat']['title']
             logging.info(f"New message from chat: {chat_id}")
             print("new message")  # Print "new message" to the console
 
