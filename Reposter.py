@@ -12,6 +12,7 @@ BOT_TOKEN = os.environ.get("7201537354:AAFwLFM_AICUWSYnUg79jPgc4FWVJiLbEdk")
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
+    print("dada")
     try:
         # Parse the incoming request JSON
         update = request.get_json()
